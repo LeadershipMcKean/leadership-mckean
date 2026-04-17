@@ -422,7 +422,7 @@ function updateSlug() {
   if (!first && !last) { document.getElementById('slugPreview').style.display = 'none'; return; }
   const slug = (first + '-' + last).toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g,'-');
   currentSlug = slug;
-  currentUrl = 'https://leadershipmckean.github.io/leadership-mckean/graduates/' + slug + '/';
+  currentUrl = 'https://jessielm1.github.io/leadership-mckean/graduates/' + slug + '/';
   document.getElementById('slugText').textContent = 'graduates/' + slug + '/index.html';
   document.getElementById('urlText').textContent = currentUrl;
   document.getElementById('slugPreview').style.display = 'block';
@@ -459,7 +459,7 @@ function goToStep2() {
   gradFullName = first + ' ' + last;
   const slug = (first + '-' + last).toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g,'-');
   currentSlug = slug;
-  currentUrl = 'https://leadershipmckean.github.io/leadership-mckean/graduates/' + slug + '/';
+  currentUrl = 'https://jessielm1.github.io/leadership-mckean/graduates/' + slug + '/';
 
   const dateLong = formatDateLong(dateVal);
   const dateShort = formatDateShort(dateVal);
@@ -562,7 +562,7 @@ function buildHtml(name, cohort, dateLong, dateShort, credId, pageUrl) {
 <title>${name} — Leadership McKean Graduate</title>
 <meta property="og:title" content="${name} | Leadership McKean Graduate" />
 <meta property="og:description" content="Verified Leadership McKean Class of ${cohort} graduate, issued by Bradford Area Alliance." />
-<meta property="og:image" content="https://leadershipmckean.github.io/leadership-mckean/assets/badge.png" />
+<meta property="og:image" content="https://jessielm1.github.io/leadership-mckean/assets/badge.png" />
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
