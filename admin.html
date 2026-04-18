@@ -277,7 +277,7 @@
 <header>
   <img src="assets/badge.png" alt="Badge" onerror="this.style.display='none'" />
   <div class="htext">
-    <div class="top">Bradford Area Alliance</div>
+    <div class="top">Leadership McKean</div>
     <div class="bot">Leadership McKean — Admin</div>
   </div>
 </header>
@@ -392,13 +392,34 @@
 
     <div class="card">
       <div class="card-title">Email to send the graduate</div>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:1rem;">Copy this and paste it into your email client. Send to the graduate's email address.</p>
-      <div class="output-email" id="emailOutput"></div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:6px;">Subject: <strong id="emailSubject"></strong></p>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:1rem;">Click <strong>Copy email</strong> then open Outlook, click New Email, paste with Ctrl+V, add the graduate's email address, and send.</p>
+
+      <!-- HTML Email Preview -->
+      <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1rem;">
+        <div style="background:#1a5c0d;padding:1.25rem 1.5rem;">
+          <img src="assets/badge.png" alt="Leadership McKean" style="height:48px;object-fit:contain;display:block;margin-bottom:8px;" onerror="this.style.display='none'" />
+          <div style="color:#a8d98a;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">Leadership McKean</div>
+          <div style="color:#fff;font-size:16px;font-weight:600;">Graduate Credential</div>
+        </div>
+        <div style="padding:1.5rem;background:#fff;">
+          <p style="font-size:15px;color:#1a1a1a;margin-bottom:1rem;">Dear <strong id="emailGradName"></strong>,</p>
+          <p style="font-size:14px;color:#444;line-height:1.7;margin-bottom:1rem;">Congratulations on completing the Leadership McKean Class of <span id="emailCohort"></span> program! Your official credential verification page is now live.</p>
+          <p style="font-size:14px;color:#444;line-height:1.7;margin-bottom:1.5rem;">Your page includes your badge, verified credential details, and step-by-step instructions for adding it to your LinkedIn profile and sharing it as a post.</p>
+          <div style="text-align:center;margin-bottom:1.5rem;">
+            <div style="display:inline-block;background:#2e7d1e;color:#fff;padding:12px 32px;border-radius:8px;font-size:15px;font-weight:600;text-decoration:none;">View Your Credential Page</div>
+          </div>
+          <p style="font-size:13px;color:#888;line-height:1.6;margin-bottom:0;">If you have any questions, contact us at <span style="color:#2e7d1e;">leadershipmckean1@gmail.com</span>.<br>Congratulations again — we're so proud of everything you've accomplished!</p>
+        </div>
+        <div style="background:#f7faf5;padding:1rem 1.5rem;text-align:center;border-top:1px solid #ddeedd;">
+          <p style="font-size:12px;color:#888;margin:0;">Leadership McKean &nbsp;·&nbsp; Bradford Area Alliance &nbsp;·&nbsp; Bradford, PA</p>
+        </div>
+      </div>
+
       <div class="action-row">
-        <button class="copy-action" onclick="copyEmail()">Copy email text</button>
+        <button class="download-action" onclick="copyEmail()">Copy email</button>
         <button class="copy-action" onclick="copySubject()">Copy subject line</button>
       </div>
-      <p style="font-size:12px;color:var(--text-muted);margin-top:10px;">Subject: <strong id="emailSubject"></strong></p>
     </div>
 
     <div class="card">
@@ -476,28 +497,8 @@ function goToStep3() {
   const cohort = document.getElementById('cohortYear').value.trim() || '2026';
   const subject = 'Your Leadership McKean credential is ready to share!';
   document.getElementById('emailSubject').textContent = subject;
-
-  const email = `Congratulations on completing the Leadership McKean Class of ${cohort} program!
-
-Your official credential verification page is now live. Use the link below to add your achievement to your LinkedIn profile and share it with your network:
-
-🎓 Your verification page:
-${currentUrl}
-
-Your page includes everything you need:
-• Your official Leadership McKean Graduate badge (with a download button)
-• Step-by-step instructions for adding the credential to your LinkedIn profile
-• A suggested caption for sharing it as a LinkedIn post
-
-If you have any questions, reply to this email or contact us at leadershipmckean1@gmail.com.
-
-Congratulations again — we're so proud of everything you've accomplished!
-
-Warm regards,
-Bradford Area Alliance
-Leadership McKean Program`;
-
-  document.getElementById('emailOutput').textContent = email;
+  document.getElementById('emailGradName').textContent = gradFullName;
+  document.getElementById('emailCohort').textContent = cohort;
   document.getElementById('gradNameDone').textContent = gradFullName;
   goToStep(3);
 }
@@ -532,7 +533,37 @@ function copyHtml() {
 }
 
 function copyEmail() {
-  navigator.clipboard.writeText(document.getElementById('emailOutput').textContent).then(() => alert('Email copied!'));
+  const cohort = document.getElementById('cohortYear').value.trim() || '2026';
+  const htmlEmail = `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
+  <div style="background:#1a5c0d;padding:20px 24px;">
+    <div style="color:#a8d98a;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">Leadership McKean</div>
+    <div style="color:#ffffff;font-size:18px;font-weight:bold;">Graduate Credential</div>
+  </div>
+  <div style="padding:32px 24px;background:#ffffff;">
+    <p style="font-size:16px;color:#1a1a1a;">Dear <strong>${gradFullName}</strong>,</p>
+    <p style="font-size:15px;color:#444444;line-height:1.7;">Congratulations on completing the Leadership McKean Class of ${cohort} program! Your official credential verification page is now live.</p>
+    <p style="font-size:15px;color:#444444;line-height:1.7;">Your page includes your badge, verified credential details, and step-by-step instructions for adding it to your LinkedIn profile and sharing it as a post.</p>
+    <div style="text-align:center;margin:32px 0;">
+      <a href="${currentUrl}" style="background:#2e7d1e;color:#ffffff;padding:14px 36px;border-radius:8px;font-size:16px;font-weight:bold;text-decoration:none;display:inline-block;">View Your Credential Page</a>
+    </div>
+    <p style="font-size:13px;color:#888888;line-height:1.6;">If you have any questions, contact us at <a href="mailto:leadershipmckean1@gmail.com" style="color:#2e7d1e;">leadershipmckean1@gmail.com</a>.<br>Congratulations again — we're so proud of everything you've accomplished!</p>
+    <p style="font-size:14px;color:#444444;margin-top:24px;">Warm regards,<br><strong>Leadership McKean Program</strong><br>Bradford Area Alliance</p>
+  </div>
+  <div style="background:#f7faf5;padding:16px 24px;text-align:center;border-top:1px solid #ddeedd;">
+    <p style="font-size:12px;color:#888888;margin:0;">Leadership McKean &nbsp;&middot;&nbsp; Bradford Area Alliance &nbsp;&middot;&nbsp; Bradford, PA</p>
+  </div>
+</div>`;
+
+  const blob = new Blob([htmlEmail], { type: 'text/html' });
+  const clipItem = new ClipboardItem({ 'text/html': blob });
+  navigator.clipboard.write([clipItem]).then(() => {
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  }).catch(() => {
+    navigator.clipboard.writeText(currentUrl).then(() => alert('HTML copy not supported in this browser. The credential URL has been copied instead — paste it into your email manually.'));
+  });
 }
 
 function copySubject() {
@@ -606,7 +637,7 @@ footer a{color:var(--gm);text-decoration:none}
 </head>
 <body>
 <header>
-  <div><div class="org">Bradford Area Alliance</div><div class="prog">Leadership McKean</div></div>
+  <div><div class="org">Leadership McKean</div><div class="prog">Bradford Area Alliance</div></div>
 </header>
 <div class="hero">
   <div class="pill"><span class="chk"></span> Verified credential</div><br>
@@ -625,7 +656,8 @@ footer a{color:var(--gm);text-decoration:none}
       <div class="mi"><span>Credential ID</span><strong>${credId}</strong></div>
       <div class="mi"><span>Status</span><strong style="color:var(--gm);">&#10003; Active</strong></div>
     </div>
-    <p class="desc">Leadership McKean is a civic leadership development program of the Bradford Area Alliance, preparing McKean County professionals to lead with purpose, vision, and community commitment.</p>
+    <p class="desc">Leadership McKean's mission is to develop informed and engaged community leaders through a personal and professional enrichment program.</p>
+    <p class="desc" style="margin-top:0.75rem;">This badge has been awarded for the successful completion of Leadership McKean's 2026 CORE Program, recognizing the participant's leadership development, civic engagement, community project execution, and commitment to strengthening McKean County.</p>
   </div>
   <div class="card">
     <div class="ct">Share your achievement</div>
@@ -654,7 +686,7 @@ footer a{color:var(--gm);text-decoration:none}
   </div>
 </main>
 <footer>
-  <p>Issued by <strong>Bradford Area Alliance</strong> &nbsp;·&nbsp; Bradford, PA</p>
+  <p>Issued by <strong>Leadership McKean</strong> &nbsp;·&nbsp; Bradford Area Alliance &nbsp;·&nbsp; Bradford, PA</p>
   <p style="margin-top:4px">Questions? Contact <a href="mailto:leadershipmckean1@gmail.com">leadershipmckean1@gmail.com</a></p>
 </footer>
 <script>
